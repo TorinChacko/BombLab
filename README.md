@@ -3,7 +3,7 @@ CS33's bomblab from 2025. Solutions are altered a but as to keep in accordance w
 
 
 # Phase 1:
-'''
+```
 000000000040145d <phase_1>:
   40145d:       53                      push   %rbx                                     
   40145e:       48 89 fb             mov    %rdi,%rbx
@@ -17,7 +17,7 @@ CS33's bomblab from 2025. Solutions are altered a but as to keep in accordance w
   401473:       eb f2                  jmp    401467 <phase_1+0xa>
   401475:       e8 b8 07 00 00  callq  401c32 <explode_bomb>
   40147a:       eb f0                  jmp    40146c <phase_1+0xf>
-'''
+```
 Put rbx on the stack
 Mov rdi which is the input into rbx
 Compare the input with 0
