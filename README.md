@@ -31,6 +31,7 @@ So the input for phase 1 should be ‘y’
 
 
 # Phase 2:
+```
   00000000004014c7 <phase_2>:
   4014c7:       53                                             push   %rbx                                   
   4014c8:       48 83 ec 10                              sub    $0x10,%rsp
@@ -83,13 +84,14 @@ So the input for phase 1 should be ‘y’
   4014c0:       c3                              retq
   4014c1:       b8 cd 00 00 00          mov    $0xcd,%eax
   4014c6:       c3                              retq
-
+```
 
 Printing the jump table and seeing that the values that print the same value are 0 and 6
 
 Answer: 0 6
 
 # Phase 3:
+```
 0000000000401521 <phase_3>:
   401521:       41 55                                  push   %r13
   401523:       41 54                                  push   %r12
@@ -126,14 +128,14 @@ Answer: 0 6
   401581:       41 5c                             pop    %r12
   401583:       41 5d                             pop    %r13
   401585:       c3                                  retq
-
+```
 
 Input: 1 1 2 3 5 8
 or:
 Any Fibonacci Sequence (seen when you need to get into s3cret_ph4se)
 
 # Phase 4
-
+```
 0000000000401586 <phase_4>:
   401586:       48 83 ec 18                 sub    $0x18,%rsp   allocate 24 bytes on the stack
   40158a:       48 8d 54 24 0c            lea    0xc(%rsp),%rdx
@@ -165,7 +167,8 @@ Any Fibonacci Sequence (seen when you need to get into s3cret_ph4se)
   4015e8:       c3                                retq
   4015e9:       e8 44 06 00 00            callq  401c32 <explode_bomb>
   4015ee:       eb f4                            jmp    4015e4 <phase_4+0x5e>
-
+```
+```
 (gdb) info registers
 rax            0x6                 6
 rbx            0x1                 1
@@ -193,12 +196,13 @@ fs             0x0                 0
 
 (gdb)  x/60c 0x403240 : printing the array
 10    2     14     7       8      1    0    11   0   4     1     13     3    9    6 
-
+```
 S+array[s]+array[array[s]] == 21
 
 
 
 # Phase 5 :GCD
+```
 00000000004015f0 <recurse>:
   4015f0:       89 f8                   mov    %edi,%eax
   4015f2:       85 f6                   test   %esi,%esi
@@ -212,7 +216,8 @@ S+array[s]+array[array[s]] == 21
   401602:       e8 e9 ff ff ff          callq  4015f0 <recurse>
   401607:       48 83 c4 08         add    $0x8,%rsp
   40160b:       c3                        retq
-
+```
+```
 000000000040160c <phase_5>:
   40160c:       55                              push   %rbp
   40160d:       53                              push   %rbx
@@ -241,14 +246,14 @@ S+array[s]+array[array[s]] == 21
   401654:       c3                        retq
   401655:       e8 d8 05 00 00   callq  401c32 <explode_bomb>
   40165a:       eb cf                   jmp    40162b <phase_5+0x1f>
+```
 
 
 
 
 
-
-Phase 6
-
+# Phase 6
+```
 000000000040165c <init_treenode>:
   40165c:       89 37                  mov    %esi,(%rdi)
   40165e:       48 89 57 08        mov    %rdx,0x8(%rdi)
@@ -317,8 +322,6 @@ Phase 6
   401738:       b9 00 00 00 00          mov    $0x0,%ecx
   40173d:       eb 89                   jmp    4016c8 <foo+0x61>
 
-
-# Phase 6
 000000000040173f <phase_6>:
   40173f:       48 83 ec 18                        sub    $0x18,%rsp
   401743:       48 8d 74 24 0c                  lea    0xc(%rsp),%rsi
@@ -351,28 +354,15 @@ Phase 6
   4017a2:       eb e3                               jmp    401787 <phase_6+0x48>
   4017a4:       e8 89 04 00 00                callq  401c32 <explode_bomb>
   4017a9:       eb ed                               jmp    401798 <phase_6+0x59>
+```
 Cyclic structure!
 240 yielded 5, so did 255
 B *40175e				
 
 RRRLLLLL → LLLLLRRR
 RRRLLLLLLL
-Summary Table
-Phase
-Input
-Phase 1
-y
-Phase 2
-0 6
-Phase 3
-1 1 2 3 5 8
-Phase 4
-3 3
-Phase 5
-14 49
-Phase 6
-133
 
+```
 (gdb) x/6gx 0x4072a0
 Value:1
 
@@ -392,7 +382,7 @@ L:0x407340
 	Value:1
 R: 0x407420
 	Value:1
-
+```
 10000101
 133
 
@@ -598,3 +588,18 @@ I could not figure out the rest of this problem, however it was a maze problem o
 Secret phase:
 End with 33 for phase 3
 Modify end input for phase 6
+
+
+# Summary Table
+## Phase 1
+Input: y
+## Phase 2
+Input: 0 6
+## Phase 3
+Input: 1 1 2 3 5 8
+## Phase 4
+Input: 3 3
+## Phase 5
+Input: 14 49
+## Phase 6
+Input: 133
