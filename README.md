@@ -387,6 +387,7 @@ R: 0x407420
 133
 
 # Secret Phase
+```
 00000000004017ab <s3cret_ph4se>:
   4017ab:       41 56                   push   %r14
   4017ad:       41 55                   push   %r13
@@ -442,11 +443,11 @@ R: 0x407420
   401847:       c3                      retq
   401848:       e8 e5 03 00 00          callq  401c32 <explode_bomb>
   40184d:       eb f0                   jmp    40183f <s3cret_ph4se+0x94>
-
+```
 We can see the entry in Explode_Bomb:
 We need to put 33 in the end of phase 3.
 I could not figure out the rest of this problem, however it was a maze problem once you entered Secret_phase.
-
+```
 0000000000401c32 <explode_bomb>:
   401c32:       48 81 ec d8 00 00 00    sub    $0xd8,%rsp
   401c39:       83 3d 38 4c 00 00 06    cmpl   $0x6,0x4c38(%rip)        # 406878                                                                                                              <num_input_strings>
@@ -582,7 +583,7 @@ I could not figure out the rest of this problem, however it was a maze problem o
   401eb2:       e8 f4 f8 ff ff          callq  4017ab <s3cret_ph4se>
   401eb7:       bf 00 00 00 00          mov    $0x0,%edi
   401ebc:       e8 ff f2 ff ff          callq  4011c0 <exit@plt>
-
+```
 
 
 Secret phase:
